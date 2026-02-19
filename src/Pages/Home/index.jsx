@@ -7,7 +7,7 @@ export default function Home() {
     const restaurants = [
         {
             id: 1,
-            image: '/imagens/produtos/imagem.png',
+            image: '/imagens/produtos/imagem-2.png',
             destacado: true,
             title: 'La Dolce Vita Trattoria',
             category: 'Japonesa',
@@ -16,7 +16,7 @@ export default function Home() {
         },
         {
             id: 2,
-            image: '/imagens/produtos/image 1.png',
+            image: '/imagens/produtos/image-1.png',
             title: 'Sakura Sushi',
             category: 'Italiana',
             rating: 4.8,
@@ -24,7 +24,7 @@ export default function Home() {
         },
         {
             id: 3,
-            image: '/imagens/produtos/image 1.png',
+            image: '/imagens/produtos/image-1.png',
             title: 'Burger House',
             category: 'Italiana',
             rating: 4.7,
@@ -32,7 +32,7 @@ export default function Home() {
         },
         {
             id: 4,
-            image: '/imagens/produtos/image 1.png',
+            image: '/imagens/produtos/image-1.png',
             title: 'Taj Mahal',
             category: 'Italiana',
             rating: 4.6,
@@ -40,7 +40,7 @@ export default function Home() {
         },
         {
         id: 5,
-        image: '/imagens/produtos/image 1.png',
+        image: '/imagens/produtos/image-1.png',
         title: 'La Dolce Vita Trattoria',
         category: 'Italiana',
         rating: 4.6,
@@ -48,7 +48,7 @@ export default function Home() {
         },
                 {
         id: 6,
-        image: '/imagens/produtos/image 1.png',
+        image: '/imagens/produtos/image-1.png',
         title: 'La Dolce Vita Trattoria',
         category: 'Italiana',
         rating: 4.6,

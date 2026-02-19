@@ -10,12 +10,12 @@ export default function Perfil() {
         category: 'Italiana',
         backgroundImage: '/imagens/fundo-perfil.png', 
         products: [
-            { id: 1, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image 3.png' },
-            { id: 2, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image 3.png' },
-            { id: 3, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image 3.png' },
-            { id: 4, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image 3.png' },
-            { id: 5, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image 3.png' },
-            { id: 6, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image 3.png' }
+            { id: 1, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image-3.png' },
+            { id: 2, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image-3.png' },
+            { id: 3, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image-3.png' },
+            { id: 4, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image-3.png' },
+            { id: 5, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image-3.png' },
+            { id: 6, title: 'Pizza Marguerita', description: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', image: '/imagens/restaurantes/image-3.png' }
         ]
     }
 
