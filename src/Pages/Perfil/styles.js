@@ -39,3 +39,75 @@ export const ProductList = styled.div`
   gap: 32px;
   padding: 0 20px;
 `
+
+
+
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fundo preto transparente */
+  z-index: 1000; /* Fica por cima de tudo */
+  
+  /* O React vai trocar a classe para mostrar ou esconder o modal */
+  display: ${props => props.className === 'visivel' ? 'flex' : 'none'};
+  align-items: center;
+  justify-content: center;
+`
+
+export const ModalContent = styled.div`
+  background-color: #E66767;
+  max-width: 1024px;
+  padding: 32px;
+  display: flex;
+  gap: 24px;
+  position: relative;
+  
+  /* Botão de fechar (X) */
+  .close-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+  }
+`
+
+export const ModalImage = styled.img`
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+`
+
+export const ModalInfos = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  h4 {
+    color: #FFFFFF;
+    font-size: 21px;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+
+  button {
+    background-color: #FFEBD9;
+    color: #E66767;
+    border: none;
+    padding: 6px 14px;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    width: fit-content; /* O botão abraça o texto */
+  }
+`
