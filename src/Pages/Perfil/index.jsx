@@ -11,11 +11,32 @@ export default function Perfil() {
     const [produtoSelecionado, setProdutoSelecionado] = useState(null)
     const [restaurante, setRestaurante] = useState(null)
 
+    // Nossos dados de segurança
+    const fallbackRestaurante = {
+        titulo: 'La Dolce Vita Trattoria',
+        tipo: 'Italiana',
+        capa: '/imagens/Produtos/massa.png',
+        cardapio: [
+            { id: 1, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 2, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 3, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 4, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 5, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 6, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' }
+        ]
+    }
+
     useEffect(() => {
         fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error('API da EBAC falhou')
+                return res.json()
+            })
             .then((data) => setRestaurante(data))
-            .catch((error) => console.error('Erro na API:', error))
+            .catch((error) => {
+                console.warn('Usando dados de fallback devido a erro na API:', error)
+                setRestaurante(fallbackRestaurante)
+            })
     }, [id])
 
     const abrirModal = (produto) => {
