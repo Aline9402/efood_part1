@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { add, open } from '../../store/reducers/cart'
 import Footer from '../../Components/Footer'
 import Hero from '../../Components/Hero'
 import ProductCard from '../../Components/ProductCard'
@@ -9,27 +7,43 @@ import { PerfilContainer, HeaderPerfil, ProductList, Modal, ModalContent, ModalI
 
 export default function Perfil() {
     const { id } = useParams()
-    const dispatch = useDispatch()
     const [modalEstaAberto, setModalEstaAberto] = useState(false)
     const [produtoSelecionado, setProdutoSelecionado] = useState(null)
     const [restaurante, setRestaurante] = useState(null)
 
+    // Nosso Plano B para o cardápio
+    const backupRestaurante = {
+        titulo: 'La Dolce Vita Trattoria',
+        tipo: 'Italiana',
+        capa: '/imagens/Produtos/massa.png',
+        cardapio: [
+            { id: 1, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 2, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 3, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 4, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 5, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
+            { id: 6, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' }
+        ]
+    }
+
     useEffect(() => {
+        // Tenta pegar da API
         fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error('Erro na API')
+                return res.json()
+            })
             .then((data) => setRestaurante(data))
-            .catch((err) => console.error("Erro na API:", err))
+            .catch((err) => {
+                // Se der erro de CORS, libera a tela com o backup!
+                console.warn("API bloqueou. Usando cardápio de backup.", err)
+                setRestaurante(backupRestaurante)
+            })
     }, [id])
 
     const abrirModal = (produto) => {
         setProdutoSelecionado(produto)
         setModalEstaAberto(true)
-    }
-
-    const adicionarAoCarrinho = () => {
-        dispatch(add(produtoSelecionado))
-        dispatch(open())
-        setModalEstaAberto(false)
     }
 
     if (!restaurante) {
@@ -72,7 +86,7 @@ export default function Perfil() {
                                     {produtoSelecionado.descricao}
                                     <br /><br /> Serve: {produtoSelecionado.porcao}
                                 </p>
-                                <button onClick={adicionarAoCarrinho}>Adicionar ao carrinho - R$ {produtoSelecionado.preco}</button>
+                                <button>Adicionar ao carrinho - R$ {produtoSelecionado.preco}</button>
                             </ModalInfos>
                         </>
                     )}
