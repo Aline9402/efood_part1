@@ -11,34 +11,11 @@ export default function Perfil() {
     const [produtoSelecionado, setProdutoSelecionado] = useState(null)
     const [restaurante, setRestaurante] = useState(null)
 
-    // Nosso Plano B para o cardápio
-    const backupRestaurante = {
-        titulo: 'La Dolce Vita Trattoria',
-        tipo: 'Italiana',
-        capa: '/imagens/Produtos/massa.png',
-        cardapio: [
-            { id: 1, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
-            { id: 2, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
-            { id: 3, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
-            { id: 4, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
-            { id: 5, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' },
-            { id: 6, nome: 'Pizza Marguerita', descricao: 'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.', foto: '/imagens/Produtos/massa.png', porcao: 'de 2 a 3 pessoas', preco: '60.90' }
-        ]
-    }
-
     useEffect(() => {
-        // Tenta pegar da API
         fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-            .then((res) => {
-                if (!res.ok) throw new Error('Erro na API')
-                return res.json()
-            })
+            .then((res) => res.json())
             .then((data) => setRestaurante(data))
-            .catch((err) => {
-                // Se der erro de CORS, libera a tela com o backup!
-                console.warn("API bloqueou. Usando cardápio de backup.", err)
-                setRestaurante(backupRestaurante)
-            })
+            .catch((erro) => console.error("Erro ao carregar a API da EBAC", erro))
     }, [id])
 
     const abrirModal = (produto) => {
