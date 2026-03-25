@@ -8,10 +8,10 @@ export default function Home() {
     const [restaurantes, setRestaurantes] = useState([])
 
     useEffect(() => {
-        fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+        fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
             .then((res) => res.json())
             .then((data) => setRestaurantes(data))
-            .catch((erro) => console.error("Erro ao carregar a API da EBAC", erro))
+            .catch((erro) => console.error("Erro ao carregar a API", erro))
     }, [])
 
     if (restaurantes.length === 0) {

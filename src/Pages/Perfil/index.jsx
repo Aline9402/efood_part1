@@ -12,10 +12,10 @@ export default function Perfil() {
     const [restaurante, setRestaurante] = useState(null)
 
     useEffect(() => {
-        fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+        fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
             .then((res) => res.json())
             .then((data) => setRestaurante(data))
-            .catch((erro) => console.error("Erro ao carregar a API da EBAC", erro))
+            .catch((erro) => console.error("Erro ao carregar a API", erro))
     }, [id])
 
     const abrirModal = (produto) => {
