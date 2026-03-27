@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { add, open } from '../../store/reducers/cart' 
+
 import Footer from '../../Components/Footer'
 import Hero from '../../Components/Hero'
 import ProductCard from '../../Components/ProductCard'
@@ -7,6 +10,8 @@ import { PerfilContainer, HeaderPerfil, ProductList, Modal, ModalContent, ModalI
 
 export default function Perfil() {
     const { id } = useParams()
+    const dispatch = useDispatch() // 👇 
+    const { items } = useSelector((state) => state.cart)
     const [modalEstaAberto, setModalEstaAberto] = useState(false)
     const [produtoSelecionado, setProdutoSelecionado] = useState(null)
     const [restaurante, setRestaurante] = useState(null)
@@ -23,17 +28,25 @@ export default function Perfil() {
         setModalEstaAberto(true)
     }
 
+    const adicionarAoCarrinho = () => {
+        dispatch(add(produtoSelecionado)) 
+        dispatch(open()) 
+        setModalEstaAberto(false) 
+    }
+
     if (!restaurante) {
         return <h2 style={{ textAlign: 'center', marginTop: '100px', color: '#E66767' }}>Carregando cardápio...</h2>
     }
 
     return (
         <PerfilContainer>
-            <HeaderPerfil>
+<HeaderPerfil>
                 <div className="container">
                     <Link to="/">Restaurantes</Link>
                     <img src="/imagens/logo.png" alt="Logo efood" />
-                    <span>0 produto(s) no carrinho</span>
+                    <span onClick={() => dispatch(open())} style={{ cursor: 'pointer' }}>
+                        {items.length} produto(s) no carrinho
+                    </span>
                 </div>
             </HeaderPerfil>
 
@@ -63,7 +76,9 @@ export default function Perfil() {
                                     {produtoSelecionado.descricao}
                                     <br /><br /> Serve: {produtoSelecionado.porcao}
                                 </p>
-                                <button>Adicionar ao carrinho - R$ {produtoSelecionado.preco}</button>
+                                <button onClick={adicionarAoCarrinho}>
+                                    Adicionar ao carrinho - R$ {produtoSelecionado.preco}
+                                </button>
                             </ModalInfos>
                         </>
                     )}
