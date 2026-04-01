@@ -92,3 +92,56 @@ export const CartItem = styled.li`
     cursor: pointer;
   }
 `
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+
+  label {
+    color: #FFEBD9;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  input {
+    background-color: #FFEBD9;
+    border: 1px solid #FFEBD9;
+    height: 32px;
+    padding: 0 8px;
+    color: #4A4A4A;
+    font-size: 14px;
+    font-weight: 700;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+`
+
+export const Row = styled.div`
+  display: flex;
+  column-gap: 24px;
+  margin-top: ${({ marginTop }) => marginTop ? marginTop : '0'};
+
+  ${InputGroup} {
+    flex: 1;
+  }
+`
+
+export const CheckoutTitle = styled.h3`
+  color: #FFEBD9;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+`
+
+export const ConfirmationText = styled.p`
+  color: #FFEBD9;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-bottom: 24px;
+`
