@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
-import { Overlay, CartContainer, Sidebar, CartItem, InputGroup, Row, CheckoutTitle, ConfirmationText } from './styles'
+import { Overlay, CartContainer, Sidebar, CartItem, InputGroup, Row, CheckoutTitle, ConfirmationText, SubmitButton, ButtonGroup } from './styles'
 
 export default function Cart() {
     const { isOpen, items } = useSelector(state => state.cart)
@@ -38,7 +38,14 @@ export default function Cart() {
         }, 0).toFixed(2).replace('.', ',')
     }
 
-    const finalizarPedido = () => {
+    const irParaPagamento = (e) => {
+        e.preventDefault()
+        setStep('payment')
+    }
+
+    const finalizarPedido = (e) => {
+        e.preventDefault()
+
         const payload = {
             products: items.map(item => ({
                 id: item.id,
@@ -79,7 +86,7 @@ export default function Cart() {
             setOrderId(data.orderId)
             setStep('confirmation')
         })
-        .catch((erro) => console.error("Erro ao enviar o pedido", erro))
+        .catch((erro) => console.error(erro))
     }
 
     return (
@@ -104,39 +111,39 @@ export default function Cart() {
                             <p>Valor total</p>
                             <span>R$ {getTotalPrice()}</span>
                         </div>
-                        <button type="button" onClick={() => setStep('delivery')}>
+                        <SubmitButton type="button" onClick={() => setStep('delivery')}>
                             Continuar com a entrega
-                        </button>
+                        </SubmitButton>
                     </>
                 )}
 
                 {step === 'delivery' && (
-                    <form>
+                    <form onSubmit={irParaPagamento}>
                         <CheckoutTitle>Entrega</CheckoutTitle>
                         
                         <InputGroup>
                             <label htmlFor="receiver">Quem irá receber</label>
-                            <input type="text" id="receiver" name="receiver" value={formData.receiver} onChange={handleInputChange} />
+                            <input type="text" id="receiver" name="receiver" value={formData.receiver} onChange={handleInputChange} required />
                         </InputGroup>
 
                         <InputGroup>
                             <label htmlFor="address">Endereço</label>
-                            <input type="text" id="address" name="address" value={formData.address} onChange={handleInputChange} />
+                            <input type="text" id="address" name="address" value={formData.address} onChange={handleInputChange} required />
                         </InputGroup>
 
                         <InputGroup>
                             <label htmlFor="city">Cidade</label>
-                            <input type="text" id="city" name="city" value={formData.city} onChange={handleInputChange} />
+                            <input type="text" id="city" name="city" value={formData.city} onChange={handleInputChange} required />
                         </InputGroup>
 
                         <Row>
                             <InputGroup>
                                 <label htmlFor="zipCode">CEP</label>
-                                <input type="text" id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleInputChange} />
+                                <input type="text" id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleInputChange} required minLength={8} maxLength={9} />
                             </InputGroup>
                             <InputGroup>
                                 <label htmlFor="number">Número</label>
-                                <input type="text" id="number" name="number" value={formData.number} onChange={handleInputChange} />
+                                <input type="number" id="number" name="number" value={formData.number} onChange={handleInputChange} required />
                             </InputGroup>
                         </Row>
 
@@ -145,56 +152,56 @@ export default function Cart() {
                             <input type="text" id="complement" name="complement" value={formData.complement} onChange={handleInputChange} />
                         </InputGroup>
 
-                        <div style={{ marginTop: '24px' }}>
-                            <button type="button" onClick={() => setStep('payment')} style={{ marginBottom: '8px' }}>
+                        <ButtonGroup>
+                            <SubmitButton type="submit">
                                 Continuar com o pagamento
-                            </button>
-                            <button type="button" onClick={() => setStep('cart')}>
+                            </SubmitButton>
+                            <SubmitButton type="button" onClick={() => setStep('cart')}>
                                 Voltar para o carrinho
-                            </button>
-                        </div>
+                            </SubmitButton>
+                        </ButtonGroup>
                     </form>
                 )}
 
                 {step === 'payment' && (
-                    <form>
+                    <form onSubmit={finalizarPedido}>
                         <CheckoutTitle>Pagamento - Valor a pagar R$ {getTotalPrice()}</CheckoutTitle>
                         
                         <InputGroup>
                             <label htmlFor="cardName">Nome no cartão</label>
-                            <input type="text" id="cardName" name="cardName" value={formData.cardName} onChange={handleInputChange} />
+                            <input type="text" id="cardName" name="cardName" value={formData.cardName} onChange={handleInputChange} required />
                         </InputGroup>
 
                         <Row>
                             <InputGroup>
                                 <label htmlFor="cardNumber">Número do cartão</label>
-                                <input type="text" id="cardNumber" name="cardNumber" value={formData.cardNumber} onChange={handleInputChange} />
+                                <input type="text" id="cardNumber" name="cardNumber" value={formData.cardNumber} onChange={handleInputChange} required minLength={16} maxLength={16} />
                             </InputGroup>
                             <InputGroup>
                                 <label htmlFor="cvv">CVV</label>
-                                <input type="text" id="cvv" name="cvv" value={formData.cvv} onChange={handleInputChange} />
+                                <input type="text" id="cvv" name="cvv" value={formData.cvv} onChange={handleInputChange} required minLength={3} maxLength={3} />
                             </InputGroup>
                         </Row>
 
                         <Row>
                             <InputGroup>
                                 <label htmlFor="expiresMonth">Mês de vencimento</label>
-                                <input type="text" id="expiresMonth" name="expiresMonth" value={formData.expiresMonth} onChange={handleInputChange} />
+                                <input type="text" id="expiresMonth" name="expiresMonth" value={formData.expiresMonth} onChange={handleInputChange} required minLength={2} maxLength={2} />
                             </InputGroup>
                             <InputGroup>
                                 <label htmlFor="expiresYear">Ano de vencimento</label>
-                                <input type="text" id="expiresYear" name="expiresYear" value={formData.expiresYear} onChange={handleInputChange} />
+                                <input type="text" id="expiresYear" name="expiresYear" value={formData.expiresYear} onChange={handleInputChange} required minLength={4} maxLength={4} />
                             </InputGroup>
                         </Row>
 
-                        <div style={{ marginTop: '24px' }}>
-                            <button type="button" onClick={finalizarPedido} style={{ marginBottom: '8px' }}>
+                        <ButtonGroup>
+                            <SubmitButton type="submit">
                                 Finalizar pagamento
-                            </button>
-                            <button type="button" onClick={() => setStep('delivery')}>
+                            </SubmitButton>
+                            <SubmitButton type="button" onClick={() => setStep('delivery')}>
                                 Voltar para a edição de endereço
-                            </button>
-                        </div>
+                            </SubmitButton>
+                        </ButtonGroup>
                     </form>
                 )}
 
@@ -210,9 +217,9 @@ export default function Cart() {
                             <br /><br />
                             Esperamos que desfrute de uma deliciosa e agradável experiência gastronômica. Bom apetite!
                         </ConfirmationText>
-                        <button type="button" onClick={closeCart}>
+                        <SubmitButton type="button" onClick={closeCart}>
                             Concluir
-                        </button>
+                        </SubmitButton>
                     </>
                 )}
             </Sidebar>

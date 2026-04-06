@@ -23,7 +23,6 @@ export const Overlay = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
 `
-
 export const Sidebar = styled.aside`
   background-color: #E66767;
   z-index: 1;
@@ -40,17 +39,22 @@ export const Sidebar = styled.aside`
     font-weight: 700;
     font-size: 14px;
   }
+`
 
-  > button {
-    background-color: #FFEBD9;
-    color: #E66767;
-    border: none;
-    width: 100%;
-    padding: 4px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-  }
+export const SubmitButton = styled.button`
+  background-color: #FFEBD9;
+  color: #E66767;
+  border: none;
+  width: 100%;
+  padding: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 8px;
+`
+
+export const ButtonGroup = styled.div`
+  margin-top: 24px;
 `
 
 export const CartItem = styled.li`
